@@ -1,0 +1,31 @@
+{
+  "name": "com.zibra.liquids-free",
+  "displayName": "Zibra AI - Liquids",
+  "version": "1.0.0",
+  "unity": "2019.4",
+  "keywords": [
+    "liquid",
+    "fluid",
+    "simulation",
+    "water",
+    "particles",
+    "physics",
+    "collider",
+    "VFX"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Zibra AI",
+    "email": "ceo@zibra.ai",
+    "url": "https://zibra.ai/"
+  },
+  "homepage": "https://zibra.ai/",
+  "bugs": {
+    "url": "https://github.com/ZibraAI/com.zibra.liquids-free/issues",
+    "email": "support@zibraai.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:ZibraAI/com.zibra.liquids-free.git"
+  }
+}
