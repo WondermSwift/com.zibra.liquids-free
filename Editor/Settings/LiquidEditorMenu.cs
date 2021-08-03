@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace com.zibra.liquid.Editor
 {
-    internal static class LiquidEditorMenu
+    static class LiquidEditorMenu
     {
 
         [MenuItem(ZibraAIPackage.RootMenu + "Info", false, 0)]

@@ -6,7 +6,7 @@ namespace com.zibra.liquid.Editor
     /// <summary>
     /// Base window tab implementation for <see cref="PackageSettingsWindow{TWindow}" />
     /// </summary>
-    internal abstract class BaseTab : VisualElement
+    abstract class BaseTab : VisualElement
     {
         /// <summary>
         /// Created tab with the content of provided uxml file.

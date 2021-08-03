@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace com.zibra.liquid.Editor
 {
-    internal class LiquidSettingsWindow : PackageSettingsWindow<LiquidSettingsWindow>
+    class LiquidSettingsWindow : PackageSettingsWindow<LiquidSettingsWindow>
     {
 	    internal override IPackageInfo GetPackageInfo()
 #if ZIBRA_PLUGIN

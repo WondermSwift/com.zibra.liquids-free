@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace com.zibra.liquid.Editor
 {
-    internal class SettingsTab : BaseTab
+    class SettingsTab : BaseTab
     {
         readonly VisualElement m_StackVisualizersRoot;
 
