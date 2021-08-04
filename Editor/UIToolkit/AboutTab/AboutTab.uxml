@@ -23,7 +23,7 @@
         <ui:Label text="or join our Discord.&#10;" name="descriptionJoinDiscord" class="description" />
         <ui:Label text="For a non technical or business related questions, please use:" name="descriptionWhatWeDo" class="description" />
         <ui:VisualElement class="mail">
-            <com.zibra.liquid.Editor.Hyperlink link="mailto:hello@zibra.ai" name="ceoEmail">
+            <com.zibra.liquid.Editor.Hyperlink link="ceo@zibraai.com" name="ceoEmail">
                 <ui:Label text="ceo@zibraai.com" name="ceoEmailText" />
             </com.zibra.liquid.Editor.Hyperlink>
         </ui:VisualElement>
