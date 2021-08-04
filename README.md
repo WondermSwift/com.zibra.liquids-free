@@ -4,7 +4,7 @@
 [![NPM Package](https://img.shields.io/npm/v/com.zibra.liquids-free)](https://www.npmjs.com/package/com.zibra.liquids-free)
 [![openupm](https://img.shields.io/npm/v/com.zibra.liquids-free?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.zibra.liquids-free/)
 [![Licence](https://img.shields.io/npm/l/com.zibra.liquids-free)](https://github.com/zibra/com.zibra.liquids-free/blob/master/LICENSE)
-[![Issues](https://img.shields.io/github/issues/zibra/com.zibra.liquids-free)](https://github.com/zibra/com.zibra.liquids-free/issues)
+[![Issues](https://img.shields.io/github/issues/ZibraAI/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/issues)
 
 <!-- Add some useful links here -->
 
