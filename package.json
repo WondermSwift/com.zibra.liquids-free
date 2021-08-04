@@ -27,5 +27,6 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com:ZibraAI/com.zibra.liquids-free.git"
-  }
+  },
+  "description": "Real-time liquid simulation plugin (GPU), powered by AI. New game mechanics & gameplay, graphics refining, game performance improvement. Ease of use."
 }
