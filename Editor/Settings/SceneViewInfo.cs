@@ -4,7 +4,7 @@ using UnityEngine;
 namespace com.zibra.liquid.Editor
 {
     [Serializable]
-    class SceneViewInfo
+    internal class SceneViewInfo
     {
         public Vector3 Position { get; private set; }
         public Quaternion Rotation { get; private set; }

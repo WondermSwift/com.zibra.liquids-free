@@ -1,8 +1,8 @@
 namespace com.zibra.liquid.Editor {
-	interface IPackageInfo {
-		string DisplayName { get; }
-		string Description { get; }
-		string Version { get; }
+	internal interface IPackageInfo {
+		string displayName { get; }
+		string description { get; }
+		string version { get; }
 	}
 }
 

@@ -55,7 +55,11 @@ namespace com.zibra.liquid.SDFObjects
             Intersect,
             Substract
         };
-        
+
+#if ZIBRA_LIQUID_PAID_VERSION
+        public bool forceInteraction;
+#endif
+
         protected void OnEnable()
         {
             if (!AllColliders?.Contains(this) ?? false)

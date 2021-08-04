@@ -1,4 +1,5 @@
 ﻿#if UNITY_2019_4_OR_NEWER
+using com.zibra.liquid.Editor;
 using JetBrains.Annotations;
 using UnityEngine.UIElements;
 
@@ -7,7 +8,7 @@ namespace com.zibra.liquid.Editor
     /// <summary>
     /// The layout control that created a block with bold settings title and 10px intended content.
     /// </summary>
-    class SettingsBlock : BindableElement
+    internal class SettingsBlock : BindableElement
     {
         [UsedImplicitly]
         internal new class UxmlFactory : UxmlFactory<SettingsBlock, UxmlTraits> { }

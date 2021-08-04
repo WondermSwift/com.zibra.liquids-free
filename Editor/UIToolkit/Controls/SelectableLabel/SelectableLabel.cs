@@ -1,4 +1,5 @@
 #if UNITY_2019_4_OR_NEWER
+using com.zibra.liquid.Editor;
 using JetBrains.Annotations;
 using UnityEngine.UIElements;
 
@@ -9,7 +10,7 @@ namespace com.zibra.liquid.Editor
     /// The same feature as we use to have with IMGUI
     /// <see href="https://docs.unity3d.com/ScriptReference/EditorGUILayout.SelectableLabel.html"/>
     /// </summary>
-    class SelectableLabel : Label
+    internal class SelectableLabel : Label
     {
         /// <exclude/>
         [UsedImplicitly]

@@ -8,7 +8,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -19,7 +19,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -32,7 +32,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -43,7 +43,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -54,7 +54,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -65,7 +65,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -76,7 +76,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -87,7 +87,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -98,7 +98,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -111,7 +111,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -122,7 +122,19 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
+        [DllImport("ZibraFluidNative_x64")]
+#else
+        [DllImport("ZibraFluidNative_x86")]
+#endif
+#endif
+        public static extern void RegisterVoxelCollider(Int32 InstanceID, IntPtr VoxelIDGrid1, IntPtr VoxelIDGrid2, IntPtr VoxelPositions,
+            IntPtr VoxelEmbeddings, int VoxelNum, int colliderNumber);
+
+#if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
+	    [DllImport ("__Internal")]
+#else
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -133,7 +145,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -144,7 +156,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	    [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -155,7 +167,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -166,7 +178,7 @@ namespace com.zibra.liquid.Solver
 #if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
 	        [DllImport ("__Internal")]
 #else
-#if UNITY_64
+#if UNITY_64 || UNITY_EDITOR_64 
         [DllImport("ZibraFluidNative_x64")]
 #else
         [DllImport("ZibraFluidNative_x86")]
@@ -174,6 +186,29 @@ namespace com.zibra.liquid.Solver
 #endif
         public static extern IntPtr GetCameraUpdateFunction();
 
+#if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
+	        [DllImport ("__Internal")]
+#else
+#if UNITY_64 || UNITY_EDITOR_64 
+        [DllImport("ZibraFluidNative_x64")]
+#else
+        [DllImport("ZibraFluidNative_x86")]
+#endif
+#endif
+        public static extern bool IsPaidVersion();
+
+#if (UNITY_IOS || UNITY_TVOS || UNITY_WEBGL) && !UNITY_EDITOR
+	        [DllImport ("__Internal")]
+#else
+#if UNITY_64 || UNITY_EDITOR_64 
+        [DllImport("ZibraFluidNative_x64")]
+#else
+        [DllImport("ZibraFluidNative_x86")]
+#endif
+#endif
+        public static extern IntPtr GetVersion();
+
+        public static readonly string version = Marshal.PtrToStringAnsi(GetVersion());
 
         public static int EventAndInstanceID(int eventID, int InstanceID)
         {

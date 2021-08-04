@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace com.zibra.liquid.Editor
 {
     [Serializable]
-    class SceneStateInfo
+    internal class SceneStateInfo
     {
         public string Path;
         public bool WasLoaded;

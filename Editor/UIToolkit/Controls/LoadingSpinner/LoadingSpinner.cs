@@ -1,4 +1,5 @@
 ﻿#if UNITY_2019_4_OR_NEWER
+using com.zibra.liquid.Editor;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,7 +9,7 @@ namespace com.zibra.liquid.Editor
     /// <summary>
     /// The LoadingSpinner control. let's you place buttons group with the labels or images
     /// </summary>
-    sealed class LoadingSpinner : VisualElement
+    internal sealed class LoadingSpinner : VisualElement
     {
         [UsedImplicitly]
         internal new class UxmlFactory : UxmlFactory<LoadingSpinner, UxmlTraits> { }

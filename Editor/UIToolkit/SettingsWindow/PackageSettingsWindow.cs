@@ -1,6 +1,7 @@
 ﻿#if UNITY_2019_4_OR_NEWER
 using System;
 using System.Collections.Generic;
+using com.zibra.liquid.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,9 +35,9 @@ namespace com.zibra.liquid.Editor
             m_TabsContainer = root.Q<ScrollView>("tabs-container");
 
             var packageInfo = GetPackageInfo();
-            root.Q<Label>("display-name").text = packageInfo.DisplayName;
-            root.Q<Label>("description").text = packageInfo.Description;
-            root.Q<Label>("version").text = $"Version: {packageInfo.Version}";
+            root.Q<Label>("display-name").text = packageInfo.displayName;
+            root.Q<Label>("description").text = packageInfo.description;
+            root.Q<Label>("version").text = $"Version: {packageInfo.version}";
 
             m_TabsButtons = root.Q<ButtonStrip>();
             m_TabsButtons.CleanUp();

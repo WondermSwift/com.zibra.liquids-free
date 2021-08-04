@@ -324,10 +324,10 @@ namespace com.zibra.liquid.Editor.Solver
 
             EditorGUILayout.PropertyField(sdfColliders, true);
 
-            if (ZibraLiquid.sdfColliders.Count > 5)
+            if (!ZibraLiquidBridge.IsPaidVersion() && ZibraLiquid.sdfColliders.Count > 5)
             {
-                for (int i = 5; i < ZibraLiquid.sdfColliders.Count; i++)
-                    ZibraLiquid.sdfColliders.RemoveAt(i);
+                Debug.LogWarning("Too many SDF colliders for free version of Zibra Liquids, some colliders will be disabled. Free version limited to 5 SDF colliders.");
+                ZibraLiquid.sdfColliders.RemoveRange(5, ZibraLiquid.sdfColliders.Count - 5);
             }
 
             GUIContent btnTxt = new GUIContent("Add Collider");
@@ -363,7 +363,7 @@ namespace com.zibra.liquid.Editor.Solver
                     EditorGUILayout.PropertyField(serializedProperty, true);
                     EditorGUI.EndDisabledGroup();
 
-                    if (ZibraLiquid.sdfColliders.Count < 5)
+                    if (!ZibraLiquidBridge.IsPaidVersion() && ZibraLiquid.sdfColliders.Count < 5)
                     {
                         if (GUILayout.Button("Add", GUILayout.ExpandWidth(false)))
                         {

@@ -8,7 +8,7 @@ namespace com.zibra.liquid.Editor
     /// <summary>
     /// Editor related UI Toolkit utility methods.
     /// </summary>
-    static class UIToolkitEditorUtility
+    internal static class UIToolkitEditorUtility
     {
         /// <summary>
         /// Helper method to Clone VisualTreeAsset into the target and apply uss styles including the skin.

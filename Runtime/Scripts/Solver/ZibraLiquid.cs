@@ -15,6 +15,11 @@ using UnityEditor.Presets;
 #endif
 using AOT;
 
+
+#if !ZIBRA_LIQUID_PAID_VERSION && !ZIBRA_LIQUID_FREE_VERSION
+#error Missing plugin version definition
+#endif
+
 namespace com.zibra.liquid.Solver
 {
     /// <summary>
@@ -51,7 +56,7 @@ namespace com.zibra.liquid.Solver
 
         private const int MPM_THREADS = 256;
 
-        #region PARTICLES
+#region PARTICLES
 
         [StructLayout(LayoutKind.Sequential)]
         private class ParticlesInitValues
@@ -110,9 +115,9 @@ namespace com.zibra.liquid.Solver
         private CameraRender cameraRenderParams;
         private RenderParameters renderParams;
 
-        #endregion
+#endregion
 
-        #region SOLVER
+#region SOLVER
 
         /// <summary>
         /// Native solver instance ID number
@@ -181,8 +186,10 @@ namespace com.zibra.liquid.Solver
         private FluidParameters fluidParametersParams;
         private ComputeBuffer positionMassCopy;
         private ComputeBuffer gridBlur1;
+        private ComputeBuffer forceTorque;
         private ComputeBuffer gridNodePositions;
         private ComputeBuffer nodeParticlePairs;
+        private ComputeBuffer objPositions;
         private CommandBuffer solverCommandBuffer;
         private CommandBuffer SolverCommandBuffer;
 
@@ -194,7 +201,7 @@ namespace com.zibra.liquid.Solver
         ///Torques acting on the SDF colliders
         /// </summary>
         private Vector3[] ObjectTorques;
-        #endregion
+#endregion
 
         /// <summary>
         /// Using a reference mesh renderer to set the container size and position
@@ -341,10 +348,6 @@ namespace com.zibra.liquid.Solver
         private FluidHDRPRenderComponent hdrpRenderer;
 #endif
 
-#if UNITY_PIPELINE_URP
-        private FluidURPRenderComponent urpRenderer;
-#endif
-
         /// <summary>
         /// Activate the solver
         /// </summary>
@@ -384,13 +387,17 @@ namespace com.zibra.liquid.Solver
 
         protected void OnEnable()
         {
-            if (!AllFluids?.Contains(this) ?? false)
+#if ZIBRA_LIQUID_PAID_VERSION
+            if (!ZibraLiquidBridge.IsPaidVersion())
             {
-                AllFluids.Add(this);
+                Debug.LogError("Free version of native plugin used with paid version of C# plugin. This should never happen.");
             }
-
-            if (sdfColliders == null)
-                sdfColliders = new List<SDFCollider>();
+#else
+            if (ZibraLiquidBridge.IsPaidVersion())
+            {
+                Debug.LogError("Paid version of native plugin used with free version of C# plugin. This should never happen.");
+            }
+#endif
 
 #if UNITY_EDITOR
             if (!UnityEditor.EditorApplication.isPlaying)
@@ -398,7 +405,16 @@ namespace com.zibra.liquid.Solver
                 return;
             }
 #endif
+
             Init();
+
+            // DO NOT USE AllFluids.Contains(this)
+            // ZibraLiquid::Equals is overriden and don't have correct implementation
+            // So AllFluids.Contains(this) can give you false positive
+            AllFluids?.Add(this);
+
+            if (sdfColliders == null)
+                sdfColliders = new List<SDFCollider>();
         }
 
         private void InitializeParticles(int number,
@@ -419,7 +435,7 @@ namespace com.zibra.liquid.Solver
             GridSize = Vector3Int.CeilToInt(containerSize / targetCellSize);
 
             PositionMass = new ComputeBuffer(NumParticles, 4 * sizeof(float));
-            PositionRadius = new ComputeBuffer(NumParticles, 4 * sizeof(float));
+            PositionRadius = new ComputeBuffer(NumParticles, sizeof(uint));
             Affine = new ComputeBuffer[2];
             Affine[0] = new ComputeBuffer(4 * numParticlesRounded, 2 * sizeof(int));
             Affine[1] = new ComputeBuffer(4 * numParticlesRounded, 2 * sizeof(int));
@@ -484,6 +500,22 @@ namespace com.zibra.liquid.Solver
             positionMassCopy = new ComputeBuffer(NumParticlesRounded, 4 * sizeof(float));
             nodeParticlePairs = new ComputeBuffer(NumParticlesRounded, 2 * sizeof(int));
 
+
+#if ZIBRA_LIQUID_PAID_VERSION
+            int id = 0;
+            foreach (var collider in sdfColliders)
+            {
+                if (collider.forceInteraction)
+                {
+                    needForceInteractionUpdate = true;
+                }
+
+                ObjectForces[id] = new Vector3(0, 0, 0);
+                ObjectTorques[id] = new Vector3(0, 0, 0);
+                id++;
+            }
+#endif
+
             solverCommandBuffer = new CommandBuffer
             {
                 name = "ZibraLiquid.Solver"
@@ -502,6 +534,18 @@ namespace com.zibra.liquid.Solver
                 GridSDF.GetNativeBufferPtr(), gridNodePositions.GetNativeBufferPtr(),
                 nodeParticlePairs.GetNativeBufferPtr(), GridID.GetNativeBufferPtr());
             gcparamBuffer.Free();
+
+#if ZIBRA_LIQUID_PAID_VERSION
+            if (sdfColliders.Count > 0)
+            {
+                forceTorque = new ComputeBuffer(6 * sdfColliders.Count, sizeof(int));
+                objPositions = new ComputeBuffer(sdfColliders.Count, 4 * sizeof(float));
+
+                ZibraLiquidBridge.RegisterCollidersBuffers(CurrentInstanceID, forceTorque.GetNativeBufferPtr(), objPositions.GetNativeBufferPtr());
+            }
+
+            solverCommandBuffer.IssuePluginEvent(ZibraLiquidBridge.GetRenderEventFunc(), ZibraLiquidBridge.EventAndInstanceID(2, CurrentInstanceID));
+#endif
 
             Graphics.ExecuteCommandBuffer(solverCommandBuffer);
         }
@@ -823,6 +867,9 @@ namespace com.zibra.liquid.Solver
             timestep = dt;
             solverCommandBuffer.Clear();
 
+#if ZIBRA_LIQUID_PAID_VERSION
+            ApplyForceInteraction();
+#endif
             SetFluidParameters();
             AddColliderSDFs();
 
@@ -837,6 +884,68 @@ namespace com.zibra.liquid.Solver
             simulationInternalTime += timestep;
             simulationInternalFrame++;
         }
+
+#if ZIBRA_LIQUID_PAID_VERSION
+        private void ApplyForcesTorques()
+        {
+            //load forces and torques asynchronously 
+            int id = 0;
+            var ReadbackRequest = AsyncGPUReadback.Request(forceTorque, request =>
+            {
+                var FT = request.GetData<int>();
+
+                foreach (var collider in sdfColliders)
+                {
+                    Vector3 force = new Vector3(INT2Float(FT[id * 6]), INT2Float(FT[id * 6 + 1]), INT2Float(FT[id * 6 + 2]));
+                    Vector3 torque = new Vector3(INT2Float(FT[id * 6 + 3]), INT2Float(FT[id * 6 + 4]), INT2Float(FT[id * 6 + 5]));
+                    ObjectForces[id] = force;
+                    ObjectTorques[id] = torque;
+                    id++;
+                }
+            });
+
+            if (!UseAsyncForceUpdate)
+                ReadbackRequest.WaitForCompletion();
+
+            //apply forces and torques every frame
+            id = 0;
+            foreach (var collider in sdfColliders)
+            {
+                if (collider.forceInteraction)
+                {
+                    collider.gameObject.GetComponent<Rigidbody>().AddForce(ObjectForces[id], ForceMode.Force);
+                    collider.gameObject.GetComponent<Rigidbody>().AddTorque(ObjectTorques[id], ForceMode.Force);
+                }
+                id++;
+            }
+        }
+
+        private void ApplyForceInteraction()
+        {
+            if (!needForceInteractionUpdate || simulationInternalFrame < 50 || sdfColliders.Count == 0)
+                return;
+
+            ApplyForcesTorques();
+
+            var objPos = new float[4 * sdfColliders.Count];
+
+            for (var i = 0; i < sdfColliders.Count; i++)
+            {
+                Vector3 pos = sdfColliders[i].transform.position;
+                if (sdfColliders[i].forceInteraction)
+                    pos = sdfColliders[i].GetComponent<Rigidbody>().worldCenterOfMass;
+
+                objPos[4 * i + 0] = pos.x;
+                objPos[4 * i + 1] = pos.y;
+                objPos[4 * i + 2] = pos.z;
+                objPos[4 * i + 3] = 0.0f;
+            }
+
+            GCHandle gcparamBuffer = GCHandle.Alloc(objPos, GCHandleType.Pinned);
+            ZibraLiquidBridge.UpdateForceInteractionBuffers(CurrentInstanceID, gcparamBuffer.AddrOfPinnedObject(), sdfColliders.Count);
+            gcparamBuffer.Free();
+        }
+#endif
 
         private void AddColliderSDFs()
         {
@@ -925,6 +1034,7 @@ namespace com.zibra.liquid.Solver
             Affine[0]?.Release();
             Affine[1]?.Release();
             drawableGrid?.Release();
+            objPositions?.Release();
             GridData?.Release();
             IndexGrid?.Release();
             ParticleDensity?.Release();
@@ -935,6 +1045,7 @@ namespace com.zibra.liquid.Solver
             gridBlur1?.Release();
             GridSDF?.Release();
             GridID?.Release();
+            forceTorque?.Release();
             gridNodePositions?.Release();
 
             cameraCBs.Clear();
@@ -963,9 +1074,21 @@ namespace com.zibra.liquid.Solver
 
             initialized = false;
 
-            if (AllFluids?.Contains(this) ?? false)
+            // DO NOT USE AllFluids.Remove(this)
+            // This will not result in equivalent code
+            // ZibraLiquid::Equals is overriden and don't have correct implementation
+
+            if (AllFluids != null)
             {
-                AllFluids.Remove(this);
+                for (int i = 0; i < AllFluids.Count; i++)
+                {
+                    var fluid = AllFluids[i];
+                    if (ReferenceEquals(fluid, this))
+                    {
+                        AllFluids.RemoveAt(i);
+                        break;
+                    }
+                }
             }
         }
     }

@@ -1,11 +1,12 @@
 ﻿#if UNITY_2019_4_OR_NEWER
+using com.zibra.liquid.Editor;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace com.zibra.liquid.Editor
 {
-    class Hyperlink : BindableElement
+    internal class Hyperlink : BindableElement
     {
         [UsedImplicitly]
         public new class UxmlFactory : UxmlFactory<Hyperlink, UxmlTraits> { }
