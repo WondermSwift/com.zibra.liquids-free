@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 
 namespace com.zibra.liquid.Editor
 {
-    internal class LiquidSettingsWindow : PackageSettingsWindow<LiquidSettingsWindow>
+    class LiquidSettingsWindow : PackageSettingsWindow<LiquidSettingsWindow>
     {
 	    internal override IPackageInfo GetPackageInfo()
 #if ZIBRA_PLUGIN
 		    => new PluginInfo();
 #else
-            => new ZibraAiPackageInfo();
+            => new ZibraAiPackageInfo(ZibraAIPackage.PackageName);
 #endif
 
         protected override void OnWindowEnable(VisualElement root)

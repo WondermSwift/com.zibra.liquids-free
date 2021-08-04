@@ -13,7 +13,7 @@ namespace com.zibra.liquid.Editor
     /// First and last buttons are styled to have round corners.
     /// Component is made to replace IMGUI Toolbar: <see href="https://docs.unity3d.com/ScriptReference/GUILayout.Toolbar.html"/>
     /// </summary>
-    internal sealed class ButtonStrip : VisualElement
+    sealed class ButtonStrip : VisualElement
     {
         /// <exclude/>
         [UsedImplicitly]

@@ -9,7 +9,7 @@ namespace com.zibra.liquid.Editor
     /// The HelpBox component is a UI Toolkit analog for
     /// <see href="https://docs.unity3d.com/ScriptReference/EditorGUILayout.HelpBox.html">EditorGUILayout.HelpBox</see>.
     /// </summary>
-    internal class HelpBox : BindableElement
+    class HelpBox : BindableElement
     {
         /// <exclude/>
         [UsedImplicitly]
