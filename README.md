@@ -3,7 +3,7 @@
 
 [![NPM Package](https://img.shields.io/npm/v/com.zibra.liquids-free)](https://www.npmjs.com/package/com.zibra.liquids-free)
 [![openupm](https://img.shields.io/npm/v/com.zibra.liquids-free?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.zibra.liquids-free/)
-[![Licence](https://img.shields.io/npm/l/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/blob/master/LICENSE)
+[![Licence](https://img.shields.io/npm/l/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/blob/master/LICENSE.md)
 [![Issues](https://img.shields.io/github/issues/ZibraAI/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/issues)
 
 <!-- Add some useful links here -->
@@ -49,7 +49,7 @@ Yoy can also install this package via Git URL. To load a package from a Git URL:
 * Click the add **+** button in the status bar.
 * The options for adding packages appear.
 * Select Add package from git URL from the add menu. A text box and an Add button appear.
-* Enter the `git@github.com:zibra/com.zibra.package-builder.git` Git URL in the text box and click Add.
+* Enter the `git@github.com:ZibraAI/com.zibra.liquids-free.git` Git URL in the text box and click Add.
 * You may also install a specific package version by using the URL with the specified version.
   * `https://github.com/ZibraAI/com.zibra.liquids-free#X.Y.X`
   * Please note that the version `X.Y.Z` stated here is to be replaced with the version you would like to get.
