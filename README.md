@@ -8,7 +8,7 @@
 
 <!-- Add some useful links here -->
 
-[API Reference](https://myapi) | [Forum](https://myforum) | [Wiki](https://github.com/ZibraAI/com.zibra.liquids-free/wiki)
+[Our Website](https://zibra.ai) | [Facebook](https://www.facebook.com/zibraAI/) | [YouTube](https://www.youtube.com/channel/UC2AkLxzSIFTB1E2lvNs73xg) | [Discord](https://discord.gg/G4FNajB3D9) | [Linkedin](https://www.linkedin.com/company/zibra-ai) | [Wiki](https://github.com/ZibraAI/com.zibra.liquids-free/wiki)
 
 ### Install from NPM
 * Navigate to the `Packages` directory of your project.
