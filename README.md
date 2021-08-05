@@ -1,4 +1,4 @@
-# Package Sample
+# Liquids
 <!-- Describe your package -->
 
 [![NPM Package](https://img.shields.io/npm/v/com.zibra.liquids-free)](https://www.npmjs.com/package/com.zibra.liquids-free)
