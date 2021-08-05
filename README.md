@@ -3,7 +3,7 @@
 
 [![NPM Package](https://img.shields.io/npm/v/com.zibra.liquids-free)](https://www.npmjs.com/package/com.zibra.liquids-free)
 [![openupm](https://img.shields.io/npm/v/com.zibra.liquids-free?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.zibra.liquids-free/)
-[![Licence](https://img.shields.io/npm/l/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/blob/master/LICENSE.md)
+[![Licence](https://img.shields.io/npm/l/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/blob/master/LICENSE)
 [![Issues](https://img.shields.io/github/issues/ZibraAI/com.zibra.liquids-free)](https://github.com/ZibraAI/com.zibra.liquids-free/issues)
 
 <!-- Add some useful links here -->
@@ -17,7 +17,7 @@
   * Ensure `com.zibra` is part of `scopes`.
   * Add `com.zibra.liquids-free` to the `dependencies`, stating the latest version.
 
-A minimal example ends up looking like this. Please note that the version `X.Y.Z` stated here is to be replaced with [the latest released version](https://www.npmjs.com/package/com.zibra.foundation) which is currently [![NPM Package](https://img.shields.io/npm/v/com.zibra.foundation)](https://www.npmjs.com/package/com.zibra.foundation).
+A minimal example ends up looking like this. Please note that the version `X.Y.Z` stated here is to be replaced with [the latest released version](https://www.npmjs.com/package/com.zibra.foundation) which is currently [![NPM Package](https://img.shields.io/npm/v/com.zibra.liquids-free)](https://www.npmjs.com/package/com.zibra.foundation).
   ```json
   {
     "scopedRegistries": [
